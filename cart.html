@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🛒 Shopping Cart - StyleStore</title>
+    <link rel="stylesheet" href="assets/style.css?v=2.2" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="main-header glass-effect">
+      <div class="header-container">
+        <div class="header-left">
+          <button class="hamburger" id="hamburger" onclick="toggleMobileNav()" aria-label="Menu">
+            <span></span><span></span><span></span>
+          </button>
+          <nav class="desktop-nav">
+            <a href="index.html">New In</a>
+            <a href="index.html#productGridSection">Men</a>
+            <a href="index.html#productGridSection">Women</a>
+          </nav>
+        </div>
+        <div class="logo">
+          <a href="index.html"><h1>STYLE<span>STORE</span></h1></a>
+        </div>
+        <div class="header-right">
+          <div class="header-actions">
+            <a href="index.html#productGridSection" class="action-icon search-trigger"><i class="fas fa-search"></i></a>
+            <a href="cart.html" class="action-icon cart-trigger" onclick="event.preventDefault(); toggleSidebar();">
+              <i class="fas fa-shopping-bag"></i>
+              <span class="cart-badge" id="cartBadge">0</span>
+            </a>
+            <a href="#" class="action-icon"><i class="far fa-user"></i></a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+      <a href="index.html">Home</a> /
+      <span>Shopping Bag</span>
+    </div>
+
+    <!-- Cart Section -->
+    <section class="cart-section">
+      <div class="cart-container">
+        
+        <!-- Cart Header Row -->
+        <div class="cart-header-row">
+          <div class="cart-title-wrap">
+            <h1 class="cart-title">Shopping Bag</h1>
+            <span class="cart-count-badge" id="cartHeaderCount">0 Items</span>
+          </div>
+          <a href="index.html" class="cart-back-link"><i class="fas fa-arrow-left"></i> Continue Shopping</a>
+        </div>
+
+        <!-- Free Shipping Tracker -->
+        <div class="shipping-tracker-card" id="shippingTracker">
+          <div class="tracker-header">
+            <span class="tracker-msg" id="shippingTrackerText">
+              <i class="fas fa-truck"></i> Free Shipping on orders over <strong>Rs. 3,000</strong>
+            </span>
+          </div>
+          <div class="tracker-progress-bg">
+            <div class="tracker-progress-fill" id="shippingProgressBar" style="width: 0%;"></div>
+          </div>
+        </div>
+
+        <div class="cart-wrapper">
+          <!-- Left Column: Items List & Empty Cart -->
+          <div class="cart-left-col">
+            <div class="cart-items-panel" id="cartItems">
+              <!-- Dynamically loaded modern cart item cards -->
+            </div>
+
+            <!-- Empty Cart Modern State -->
+            <div class="empty-cart-card" id="emptyCart" style="display: none;">
+              <div class="empty-cart-icon-wrap">
+                <i class="fas fa-shopping-bag"></i>
+              </div>
+              <h2>YOUR SHOPPING BAG IS EMPTY</h2>
+              <p>Looks like you haven't added anything to your cart yet. Explore our latest arrivals to elevate your style.</p>
+              <a href="index.html" class="btn-outfitters">START SHOPPING</a>
+            </div>
+          </div>
+
+          <!-- Right Column: Order Summary Panel -->
+          <div class="cart-summary-col">
+            <div class="cart-summary-card" id="cartSummaryCard">
+              <h3 class="summary-card-title">ORDER SUMMARY</h3>
+
+              <div class="summary-breakdown">
+                <div class="summary-line">
+                  <span>Subtotal</span>
+                  <span id="subtotal" class="summary-amt">Rs. 0</span>
+                </div>
+                <div class="summary-line">
+                  <span>Estimated Delivery</span>
+                  <span id="shipping" class="summary-amt shipping-amt">Rs. 0</span>
+                </div>
+                <div class="summary-line discount-line" id="discountRow" style="display: none;">
+                  <span>Promo Discount</span>
+                  <span id="discountAmount" class="summary-amt discount-amt">-Rs. 0</span>
+                </div>
+                <div class="summary-line total-line">
+                  <span>Estimated Total</span>
+                  <span id="total" class="summary-amt total-amt">Rs. 0</span>
+                </div>
+              </div>
+
+              <!-- Promo Code Box -->
+              <div class="promo-box-wrap">
+                <label for="couponInput" class="promo-label">HAVE A PROMO CODE?</label>
+                <div class="promo-input-group">
+                  <input type="text" id="couponInput" placeholder="ENTER CODE (e.g. WELCOME10)">
+                  <button class="btn-apply-coupon" onclick="applyCoupon()">APPLY</button>
+                </div>
+                <div class="promo-tags">
+                  <span class="promo-tag" onclick="quickApplyCoupon('WELCOME10')"><i class="fas fa-tag"></i> WELCOME10 (-10%)</span>
+                  <span class="promo-tag" onclick="quickApplyCoupon('SAVE20')"><i class="fas fa-tag"></i> SAVE20 (-20%)</span>
+                </div>
+              </div>
+
+              <!-- Checkout Button -->
+              <button class="btn-checkout-now" onclick="checkout()">
+                <span>PROCEED TO CHECKOUT</span>
+                <i class="fas fa-arrow-right"></i>
+              </button>
+
+              <!-- Safe Checkout Badges -->
+              <div class="checkout-trust-box">
+                <div class="trust-row"><i class="fas fa-shield-alt"></i> 100% Secure SSL Checkout</div>
+                <div class="trust-row"><i class="fas fa-undo-alt"></i> 30-Day Easy Returns & Exchanges</div>
+                <div class="trust-row"><i class="fas fa-money-bill-wave"></i> Cash on Delivery Available</div>
+              </div>
+
+              <div class="payment-icons-row">
+                <i class="fab fa-cc-visa" title="Visa"></i>
+                <i class="fab fa-cc-mastercard" title="Mastercard"></i>
+                <i class="fas fa-wallet" title="Online Wallet"></i>
+                <i class="fas fa-truck-loading" title="COD"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Recently Viewed -->
+    <section class="recently-viewed">
+      <h2>Recently Viewed</h2>
+      <div class="recent-grid" id="recentGrid"></div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+      <div class="footer-container">
+        <div class="footer-col">
+          <h3>STYLESTORE</h3>
+          <p>Premium quality clothing for modern lifestyle.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <a href="index.html">Home</a>
+          <a href="cart.html">Cart</a>
+          <a href="#">About Us</a>
+          <a href="#">Contact</a>
+        </div>
+        <div class="footer-col">
+          <h4>Customer Service</h4>
+          <a href="#">Shipping Policy</a>
+          <a href="#">Returns & Refunds</a>
+          <a href="#">FAQ</a>
+          <a href="#">Track Order</a>
+        </div>
+        <div class="footer-col">
+          <h4>Follow Us</h4>
+          <div class="social-links">
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 StyleStore. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <!-- Mini Cart Sidebar -->
+    <div class="cart-sidebar" id="cartSidebar">
+      <div class="cart-sidebar-header">
+        <h3>Shopping Bag (<span id="sidebarCartCount">0</span>)</h3>
+        <button class="close-sidebar" onclick="toggleSidebar()"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="cart-sidebar-items" id="sidebarCartItems">
+        <!-- Sidebar items injected by JS -->
+      </div>
+      <div class="cart-sidebar-footer">
+        <div class="sidebar-total">
+          <span>Subtotal</span>
+          <span id="sidebarTotal">Rs. 0</span>
+        </div>
+        <div class="sidebar-actions">
+          <a href="cart.html" class="btn-premium btn-outline" style="width:100%; justify-content:center;">View Cart</a>
+          <button class="btn-premium btn-primary" style="width:100%; justify-content:center;" onclick="checkout()">Checkout Now</button>
+        </div>
+      </div>
+    </div>
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+    <!-- Mobile Side Drawer -->
+    <div class="mobile-drawer" id="mobileDrawer">
+      <div class="drawer-header">
+        <div class="drawer-logo">STYLE<span>STORE</span></div>
+        <button class="drawer-close" onclick="closeMobileNav()" aria-label="Close menu">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="drawer-links">
+        <a href="index.html" onclick="closeMobileNav()"><i class="fas fa-bolt"></i> New In</a>
+        <a href="index.html#productGridSection" onclick="closeMobileNav()"><i class="fas fa-tshirt"></i> Men's Collection</a>
+        <a href="index.html#productGridSection" onclick="closeMobileNav()"><i class="fas fa-female"></i> Women's Collection</a>
+        <a href="cart.html" class="active" onclick="closeMobileNav()"><i class="fas fa-shopping-bag"></i> Shopping Cart (<span class="mobileCartBadge">0</span>)</a>
+      </div>
+      <div class="drawer-footer">
+        <div class="drawer-badge"><i class="fas fa-truck"></i> Free Shipping Over Rs. 3000</div>
+        <div class="drawer-badge"><i class="fas fa-shield-alt"></i> 100% Authentic Products</div>
+        <div class="drawer-badge"><i class="fas fa-undo"></i> 30-Day Easy Returns</div>
+      </div>
+    </div>
+    <div class="nav-overlay" id="navOverlay" onclick="closeMobileNav()"></div>
+
+    <!-- Stripe Payment Sandbox Modal -->
+    <div class="stripe-modal-overlay" id="stripeModalOverlay" onclick="if(event.target === this) closeStripeModal()">
+      <div class="stripe-modal-card" id="stripeModalCard">
+        
+        <!-- Stripe Modal Header -->
+        <div class="stripe-modal-header">
+          <div class="stripe-brand">
+            <i class="fab fa-stripe stripe-logo-icon"></i>
+            <span class="stripe-sandbox-badge"><i class="fas fa-flask"></i> TEST MODE</span>
+          </div>
+          <button class="stripe-close-btn" onclick="closeStripeModal()" aria-label="Close modal">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+
+        <!-- Stripe Order Summary Strip -->
+        <div class="stripe-summary-strip">
+          <div class="stripe-merchant">
+            <span class="merchant-name">STYLESTORE OFFICIAL</span>
+            <span class="merchant-order-count" id="stripeItemCount">0 Items</span>
+          </div>
+          <div class="stripe-amount-due">
+            <span class="amount-label">AMOUNT DUE</span>
+            <span class="amount-val" id="stripeTotalAmount">Rs. 0</span>
+          </div>
+        </div>
+
+        <!-- Stripe Payment Form -->
+        <form class="stripe-form" id="stripePaymentForm" onsubmit="processStripePayment(event)">
+          
+          <!-- Test Card Helper Banner -->
+          <div class="stripe-test-helper">
+            <div class="helper-info">
+              <i class="fas fa-info-circle"></i>
+              <span>Sandbox Test Card: <strong>4242 4242 4242 4242</strong></span>
+            </div>
+            <button type="button" class="btn-autofill-card" onclick="autoFillTestCard()">
+              Auto-Fill
+            </button>
+          </div>
+
+          <div class="stripe-form-group">
+            <label for="stripeEmail">Email Address</label>
+            <div class="stripe-input-icon-wrap">
+              <i class="fas fa-envelope input-icon"></i>
+              <input type="email" id="stripeEmail" placeholder="customer@example.com" required value="customer@example.com">
+            </div>
+          </div>
+
+          <div class="stripe-form-group">
+            <label for="stripeName">Cardholder Name</label>
+            <div class="stripe-input-icon-wrap">
+              <i class="fas fa-user input-icon"></i>
+              <input type="text" id="stripeName" placeholder="Ibrahim Khan" required value="Ibrahim Khan">
+            </div>
+          </div>
+
+          <div class="stripe-form-group">
+            <label for="stripeCardNumber">Card Information</label>
+            <div class="stripe-card-element-wrap">
+              <div class="stripe-input-icon-wrap card-num-wrap">
+                <i class="far fa-credit-card input-icon" id="cardBrandIcon"></i>
+                <input type="text" id="stripeCardNumber" placeholder="4242 4242 4242 4242" maxlength="19" required oninput="handleCardNumberInput(this)">
+              </div>
+              <div class="stripe-card-sub-row">
+                <input type="text" id="stripeExpiry" placeholder="MM / YY" maxlength="5" required oninput="handleExpiryInput(this)">
+                <input type="text" id="stripeCVC" placeholder="CVC" maxlength="4" required oninput="handleCVCInput(this)">
+              </div>
+            </div>
+          </div>
+
+          <div class="stripe-form-group">
+            <label for="stripeCountry">Country & ZIP Code</label>
+            <div class="stripe-card-sub-row">
+              <select id="stripeCountry">
+                <option value="PK">Pakistan</option>
+                <option value="US">United States</option>
+                <option value="UK">United Kingdom</option>
+                <option value="AE">United Arab Emirates</option>
+              </select>
+              <input type="text" id="stripeZip" placeholder="ZIP / Postal" value="75500" required>
+            </div>
+          </div>
+
+          <!-- Submit Pay Button with dynamic price -->
+          <button type="submit" class="btn-stripe-pay" id="btnStripePay">
+            <span class="btn-pay-text" id="btnPayText">
+              <i class="fas fa-lock"></i> Pay <span id="btnPayAmount">Rs. 0</span>
+            </span>
+            <div class="stripe-spinner" id="stripeSpinner" style="display: none;"></div>
+          </button>
+
+          <div class="stripe-footer-note">
+            <i class="fas fa-shield-alt"></i> Encrypted with 256-bit SSL. Powered by <strong>Stripe</strong>.
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script src="assets/script.js?v=2.2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  </body>
+</html>

@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🛍️ STYLESTORE - Premium Fashion</title>
+  <link rel="stylesheet" href="assets/style.css?v=2.2">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body>
+  <!-- Top Announcement Bar -->
+  <div class="top-bar">
+    <p>FREE SHIPPING ON ORDERS OVER RS. 3000 | SHOP THE NEW COLLECTION NOW</p>
+  </div>
+
+  <!-- Header -->
+  <header class="main-header glass-effect">
+    <div class="header-container">
+      <div class="header-left">
+        <button class="hamburger" id="hamburger" onclick="toggleMobileNav()" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+        <nav class="desktop-nav">
+          <a href="index.html" class="active">New In</a>
+          <a href="#productGridSection">Men</a>
+          <a href="#productGridSection">Women</a>
+        </nav>
+      </div>
+      <div class="logo">
+        <a href="index.html"><h1>STYLE<span>STORE</span></h1></a>
+      </div>
+      <div class="header-right">
+        <div class="header-actions">
+          <a href="#productGridSection" class="action-icon search-trigger"><i class="fas fa-search"></i></a>
+          <a href="cart.html" class="action-icon cart-trigger" onclick="event.preventDefault(); toggleSidebar();">
+            <i class="fas fa-shopping-bag"></i>
+            <span class="cart-badge" id="cartBadge">0</span>
+          </a>
+          <a href="#" class="action-icon"><i class="far fa-user"></i></a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Slider -->
+  <section class="hero-slider">
+    <div class="slider-wrapper" id="heroSlider">
+      <!-- Slide 1 -->
+      <div class="slide active">
+        <img src="Clothes Images/slider1.webp" alt="Spring">
+        <div class="slide-content">
+          <h2>NEW ARRIVALS</h2>
+          <p>SOPHISTICATED URBAN WEAR</p>
+          <a href="#productGridSection" class="btn-outfitters">SHOP NOW</a>
+        </div>
+      </div>
+      <!-- Slide 2 -->
+      <div class="slide">
+        <img src="Clothes Images/slider2.webp" alt="Summer">
+        <div class="slide-content">
+          <h2>SUMMER '26</h2>
+          <p>THE ART OF COMFORT</p>
+          <a href="#productGridSection" class="btn-outfitters">EXPLORE</a>
+        </div>
+      </div>
+      <!-- Slide 3 -->
+      <div class="slide">
+        <video autoplay muted loop playsinline class="slide-video">
+          <source src="Clothes Images/slide3.mp4" type="video/mp4">
+        </video>
+        <div class="slide-content">
+          <h2>CRAFTED QUALITY</h2>
+          <p>PREMIUM MATERIALS ONLY</p>
+          <a href="#productGridSection" class="btn-outfitters">VIEW ALL</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slider Dots Only -->
+    <div class="slider-dots" id="sliderDots">
+      <span class="dot active" onclick="goToSlide(0)"></span>
+      <span class="dot" onclick="goToSlide(1)"></span>
+      <span class="dot" onclick="goToSlide(2)"></span>
+    </div>
+  </section>
+
+  <!-- Filters Section -->
+  <section class="filters-section">
+    <div class="filter-container">
+      <div class="filter-group">
+        <label>Category:</label>
+        <select id="categoryFilter">
+          <option value="all">All Products</option>
+          <option value="tshirt">T-Shirts</option>
+          <option value="shirt">Shirts</option>
+          <option value="pants">Pants</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label>Sort By:</label>
+        <select id="sortFilter">
+          <option value="default">Default</option>
+          <option value="price-low">Price: Low to High</option>
+          <option value="price-high">Price: High to Low</option>
+          <option value="newest">Newest First</option>
+        </select>
+      </div>
+    </div>
+  </section>
+
+  <!-- Product Grid Section -->
+  <section class="products-section" id="productGridSection">
+    <div class="section-header">
+      <h2>OUR COLLECTION</h2>
+      <p>EXPLORE PREMIUM QUALITY APPAREL</p>
+    </div>
+    <div class="product-grid" id="productGrid">
+      <!-- Products will be loaded via JavaScript -->
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="main-footer">
+    <div class="footer-container">
+      <div class="footer-col">
+        <h3>STYLESTORE</h3>
+        <p>Elevating everyday fashion with premium craftsmanship and sustainable materials.</p>
+        <div class="social-links" style="margin-top: 20px;">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Customer Service</h4>
+        <a href="#">Contact Us</a>
+        <a href="#">Shipping & Returns</a>
+        <a href="#">Size Guide</a>
+        <a href="#">FAQ</a>
+      </div>
+      <div class="footer-col">
+        <h4>Explore</h4>
+        <a href="#">Men's Collection</a>
+        <a href="#">Women's Collection</a>
+        <a href="#">Accessories</a>
+        <a href="#">Sustainability</a>
+      </div>
+      <div class="footer-col">
+        <h4>Newsletter</h4>
+        <p>JOIN OUR STYLE COMMUNITY FOR EXCLUSIVE OFFERS AND NEW ARRIVALS.</p>
+        <div class="newsletter-box">
+          <input type="email" placeholder="ENTER YOUR EMAIL">
+          <button class="btn-outfitters" style="padding: 12px 25px; width: 100%; margin-top: 10px;">JOIN</button>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 STYLESTORE. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Mini Cart Sidebar -->
+  <div class="cart-sidebar" id="cartSidebar">
+    <div class="cart-sidebar-header">
+      <h3>Shopping Bag (<span id="sidebarCartCount">0</span>)</h3>
+      <button class="close-sidebar" onclick="toggleSidebar()"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="cart-sidebar-items" id="sidebarCartItems">
+      <!-- Sidebar items injected by JS -->
+    </div>
+    <div class="cart-sidebar-footer">
+      <div class="sidebar-total">
+        <span>Subtotal</span>
+        <span id="sidebarTotal">Rs. 0</span>
+      </div>
+      <div class="sidebar-actions">
+        <a href="cart.html" class="btn-premium btn-outline" style="width:100%; justify-content:center;">View Cart</a>
+        <button class="btn-premium btn-primary" style="width:100%; justify-content:center;"
+          onclick="checkout()">Checkout Now</button>
+      </div>
+    </div>
+  </div>
+  <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+  <!-- Mobile Side Drawer -->
+  <div class="mobile-drawer" id="mobileDrawer">
+    <div class="drawer-header">
+      <div class="drawer-logo">STYLE<span>STORE</span></div>
+      <button class="drawer-close" onclick="closeMobileNav()" aria-label="Close menu">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div class="drawer-links">
+      <a href="index.html" class="active" onclick="closeMobileNav()"><i class="fas fa-bolt"></i> New In</a>
+      <a href="#productGridSection" onclick="closeMobileNav()"><i class="fas fa-tshirt"></i> Men's Collection</a>
+      <a href="#productGridSection" onclick="closeMobileNav()"><i class="fas fa-female"></i> Women's Collection</a>
+      <a href="cart.html" onclick="closeMobileNav()"><i class="fas fa-shopping-bag"></i> Shopping Cart (<span class="mobileCartBadge">0</span>)</a>
+    </div>
+      <div class="drawer-footer">
+        <div class="drawer-badge"><i class="fas fa-truck"></i> Free Shipping Over Rs. 3000</div>
+        <div class="drawer-badge"><i class="fas fa-shield-alt"></i> 100% Authentic Products</div>
+        <div class="drawer-badge"><i class="fas fa-undo"></i> 30-Day Easy Returns</div>
+      </div>
+    </div>
+    <div class="nav-overlay" id="navOverlay" onclick="closeMobileNav()"></div>
+
+  <!-- Stripe Payment Sandbox Modal -->
+  <div class="stripe-modal-overlay" id="stripeModalOverlay" onclick="if(event.target === this) closeStripeModal()">
+    <div class="stripe-modal-card" id="stripeModalCard">
+      
+      <!-- Stripe Modal Header -->
+      <div class="stripe-modal-header">
+        <div class="stripe-brand">
+          <i class="fab fa-stripe stripe-logo-icon"></i>
+          <span class="stripe-sandbox-badge"><i class="fas fa-flask"></i> TEST MODE</span>
+        </div>
+        <button class="stripe-close-btn" onclick="closeStripeModal()" aria-label="Close modal">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+
+      <!-- Stripe Order Summary Strip -->
+      <div class="stripe-summary-strip">
+        <div class="stripe-merchant">
+          <span class="merchant-name">STYLESTORE OFFICIAL</span>
+          <span class="merchant-order-count" id="stripeItemCount">0 Items</span>
+        </div>
+        <div class="stripe-amount-due">
+          <span class="amount-label">AMOUNT DUE</span>
+          <span class="amount-val" id="stripeTotalAmount">Rs. 0</span>
+        </div>
+      </div>
+
+      <!-- Stripe Payment Form -->
+      <form class="stripe-form" id="stripePaymentForm" onsubmit="processStripePayment(event)">
+        
+        <!-- Test Card Helper Banner -->
+        <div class="stripe-test-helper">
+          <div class="helper-info">
+            <i class="fas fa-info-circle"></i>
+            <span>Sandbox Test Card: <strong>4242 4242 4242 4242</strong></span>
+          </div>
+          <button type="button" class="btn-autofill-card" onclick="autoFillTestCard()">
+            Auto-Fill
+          </button>
+        </div>
+
+        <div class="stripe-form-group">
+          <label for="stripeEmail">Email Address</label>
+          <div class="stripe-input-icon-wrap">
+            <i class="fas fa-envelope input-icon"></i>
+            <input type="email" id="stripeEmail" placeholder="customer@example.com" required value="customer@example.com">
+          </div>
+        </div>
+
+        <div class="stripe-form-group">
+          <label for="stripeName">Cardholder Name</label>
+          <div class="stripe-input-icon-wrap">
+            <i class="fas fa-user input-icon"></i>
+            <input type="text" id="stripeName" placeholder="Ibrahim Khan" required value="Ibrahim Khan">
+          </div>
+        </div>
+
+        <div class="stripe-form-group">
+          <label for="stripeCardNumber">Card Information</label>
+          <div class="stripe-card-element-wrap">
+            <div class="stripe-input-icon-wrap card-num-wrap">
+              <i class="far fa-credit-card input-icon" id="cardBrandIcon"></i>
+              <input type="text" id="stripeCardNumber" placeholder="4242 4242 4242 4242" maxlength="19" required oninput="handleCardNumberInput(this)">
+            </div>
+            <div class="stripe-card-sub-row">
+              <input type="text" id="stripeExpiry" placeholder="MM / YY" maxlength="5" required oninput="handleExpiryInput(this)">
+              <input type="text" id="stripeCVC" placeholder="CVC" maxlength="4" required oninput="handleCVCInput(this)">
+            </div>
+          </div>
+        </div>
+
+        <div class="stripe-form-group">
+          <label for="stripeCountry">Country & ZIP Code</label>
+          <div class="stripe-card-sub-row">
+            <select id="stripeCountry">
+              <option value="PK">Pakistan</option>
+              <option value="US">United States</option>
+              <option value="UK">United Kingdom</option>
+              <option value="AE">United Arab Emirates</option>
+            </select>
+            <input type="text" id="stripeZip" placeholder="ZIP / Postal" value="75500" required>
+          </div>
+        </div>
+
+        <!-- Submit Pay Button with dynamic price -->
+        <button type="submit" class="btn-stripe-pay" id="btnStripePay">
+          <span class="btn-pay-text" id="btnPayText">
+            <i class="fas fa-lock"></i> Pay <span id="btnPayAmount">Rs. 0</span>
+          </span>
+          <div class="stripe-spinner" id="stripeSpinner" style="display: none;"></div>
+        </button>
+
+        <div class="stripe-footer-note">
+          <i class="fas fa-shield-alt"></i> Encrypted with 256-bit SSL. Powered by <strong>Stripe</strong>.
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="assets/script.js?v=2.2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</body>
+
+</html>
