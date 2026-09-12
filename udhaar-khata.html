@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="ur-PK">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>میرا کھاتہ — Mera Khata</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&family=Noto+Nastaliq+Urdu:wght@600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1B1F3B;
+    --ink-2:#2A2F55;
+    --paper:#FAF6EA;
+    --paper-line:#E4DCC4;
+    --gold:#C9A227;
+    --gold-dim:#8C7218;
+    --red:#B33A3A;
+    --red-bg:#F6E5E1;
+    --green:#3A7D5D;
+    --green-bg:#E4EFE6;
+    --muted:#6B6F8C;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--ink);
+    background-image:
+      radial-gradient(circle at 15% 10%, rgba(201,162,39,0.10), transparent 40%),
+      radial-gradient(circle at 85% 85%, rgba(201,162,39,0.06), transparent 40%);
+    font-family:'Inter',sans-serif;
+    color:var(--paper);
+    min-height:100vh;
+    padding:32px 16px 80px;
+  }
+  .wrap{max-width:640px;margin:0 auto;}
+  header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:6px;gap:10px;}
+  .brand{display:flex;align-items:center;gap:12px;cursor:pointer;}
+  .brand-mark{
+    width:40px;height:40px;border-radius:6px;
+    background:linear-gradient(180deg,var(--gold),var(--gold-dim));
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Noto Nastaliq Urdu',serif;font-size:20px;color:var(--ink);
+    flex-shrink:0;
+  }
+  h1{font-family:'Fraunces',serif;font-weight:600;font-size:26px;margin:0;color:var(--paper);letter-spacing:0.2px;}
+  .shop-name{font-size:12.5px;color:var(--gold);margin-top:2px;font-weight:600;}
+  .tagline{font-size:12.5px;color:var(--muted);margin-top:2px;}
+  .subhead{color:var(--muted);font-size:13px;margin:0 0 20px;}
+  .icon-btn{
+    background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.14);
+    color:var(--paper);border-radius:8px;padding:8px 12px;font-size:12px;cursor:pointer;
+    font-family:'Inter',sans-serif;font-weight:500;white-space:nowrap;
+  }
+  .toolbar{display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap;}
+
+  .summary{
+    display:grid;grid-template-columns:1fr 1fr;gap:10px;
+    margin-bottom:20px;
+  }
+  .stamp{
+    background:rgba(255,255,255,0.03);
+    border:1px solid rgba(201,162,39,0.35);
+    border-radius:10px;
+    padding:14px 16px;
+  }
+  .stamp .label{font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);}
+  .stamp .num{font-family:'IBM Plex Mono',monospace;font-size:22px;font-weight:600;margin-top:4px;}
+  .stamp.owe .num{color:#E8A2A2;}
+  .stamp.advance .num{color:#9FD4B4;}
+
+  .addbar{display:flex;gap:8px;margin-bottom:20px;}
+  .addbar input{
+    flex:1;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);
+    border-radius:8px;padding:11px 12px;color:var(--paper);font-size:14px;font-family:'Inter',sans-serif;
+  }
+  .addbar input::placeholder{color:var(--muted);}
+  .addbar button, .primary-btn{
+    background:var(--gold);color:var(--ink);border:none;border-radius:8px;
+    padding:11px 16px;font-weight:600;font-size:14px;cursor:pointer;font-family:'Inter',sans-serif;
+    white-space:nowrap;
+  }
+  .addbar button:active, .primary-btn:active{transform:scale(0.98);}
+  .ghost-btn{
+    background:transparent;color:var(--paper);border:1px solid rgba(255,255,255,0.2);
+    border-radius:8px;padding:10px 14px;font-size:13px;cursor:pointer;font-family:'Inter',sans-serif;font-weight:500;
+  }
+
+  .ledger{
+    background:var(--paper);border-radius:14px;overflow:hidden;
+    box-shadow:0 12px 30px rgba(0,0,0,0.35);
+    position:relative;
+  }
+  .ledger::before{
+    content:"";position:absolute;left:0;top:0;bottom:0;width:14px;
+    background:repeating-linear-gradient(180deg,var(--gold-dim) 0 2px, transparent 2px 10px);
+    opacity:0.5;
+  }
+  .row{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:16px 20px 16px 30px;
+    border-bottom:1px solid var(--paper-line);
+    color:var(--ink);cursor:pointer;
+  }
+  .row:last-child{border-bottom:none;}
+  .row:hover{background:rgba(201,162,39,0.06);}
+  .row-name{font-weight:600;font-size:15px;}
+  .row-sub{font-size:11.5px;color:var(--muted);margin-top:2px;}
+  .row-amt{font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:15px;}
+  .row-amt.owe{color:var(--red);}
+  .row-amt.advance{color:var(--green);}
+  .row-amt.zero{color:var(--muted);}
+
+  .empty{padding:48px 24px;text-align:center;color:var(--ink);}
+  .empty .big{font-family:'Fraunces',serif;font-size:17px;margin-bottom:6px;color:var(--ink);}
+  .empty .small{font-size:13px;color:var(--muted);}
+
+  .overlay{
+    position:fixed;inset:0;background:rgba(10,12,28,0.7);
+    display:none;align-items:flex-start;justify-content:center;
+    padding:32px 16px;overflow-y:auto;z-index:10;
+  }
+  .overlay.show{display:flex;}
+  .modal{
+    background:var(--paper);color:var(--ink);border-radius:14px;
+    max-width:520px;width:100%;padding:24px;position:relative;
+  }
+  .modal h2{font-family:'Fraunces',serif;font-size:20px;margin:0 0 2px;}
+  .modal .close{position:absolute;top:16px;right:16px;background:none;border:none;font-size:20px;color:var(--muted);cursor:pointer;}
+  .balance-line{font-family:'IBM Plex Mono',monospace;font-size:28px;font-weight:600;margin:14px 0 2px;}
+  .balance-line.owe{color:var(--red);}
+  .balance-line.advance{color:var(--green);}
+  .balance-line.zero{color:var(--muted);}
+  .balance-note{font-size:12px;color:var(--muted);margin-bottom:14px;}
+
+  .cust-actions{display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap;}
+  .cust-actions button{
+    background:#fff;border:1px solid var(--paper-line);color:var(--ink);
+    border-radius:8px;padding:8px 12px;font-size:12.5px;cursor:pointer;font-family:'Inter',sans-serif;font-weight:500;
+  }
+  .cust-actions button.wa{background:var(--green-bg);color:var(--green);border-color:transparent;}
+
+  .entry-form{display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap;}
+  .entry-form input{
+    flex:1;min-width:110px;background:#fff;border:1px solid var(--paper-line);
+    border-radius:8px;padding:10px 12px;font-size:14px;color:var(--ink);font-family:'Inter',sans-serif;
+  }
+  .toggle{display:flex;border-radius:8px;overflow:hidden;border:1px solid var(--paper-line);}
+  .toggle button{
+    border:none;background:#fff;padding:10px 14px;font-size:13px;font-weight:600;cursor:pointer;color:var(--muted);
+    font-family:'Inter',sans-serif;
+  }
+  .toggle button.active.udhar{background:var(--red-bg);color:var(--red);}
+  .toggle button.active.wapis{background:var(--green-bg);color:var(--green);}
+
+  .entries{max-height:280px;overflow-y:auto;border-top:1px solid var(--paper-line);}
+  .entry{display:flex;justify-content:space-between;align-items:flex-start;padding:12px 0;border-bottom:1px solid var(--paper-line);}
+  .entry:last-child{border-bottom:none;}
+  .entry-left .note{font-size:13.5px;font-weight:500;}
+  .entry-left .date{font-size:11px;color:var(--muted);margin-top:2px;}
+  .entry-amt{font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:14px;}
+  .entry-amt.udhar{color:var(--red);}
+  .entry-amt.wapis{color:var(--green);}
+  .del-entry{background:none;border:none;color:var(--muted);font-size:11px;cursor:pointer;margin-left:8px;text-decoration:underline;}
+
+  .err{color:var(--red);font-size:12.5px;margin:-8px 0 12px;display:none;}
+  .err.show{display:block;}
+  .field-label{font-size:11.5px;color:var(--muted);margin:0 0 4px;display:block;}
+
+  footer{text-align:center;font-size:11px;color:var(--muted);margin-top:24px;}
+  footer a{color:var(--gold);text-decoration:none;}
+
+  @media print{
+    body{background:#fff;padding:0;}
+    .wrap{max-width:100%;}
+    header,.toolbar,.summary,.addbar,.ledger,footer{display:none;}
+    .overlay{position:static;background:none;display:block;padding:0;}
+    .modal{box-shadow:none;max-width:100%;}
+    .entry-form,.cust-actions,.close{display:none;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="brand" id="brandArea">
+      <div class="brand-mark">کھ</div>
+      <div>
+        <h1>Mera Khata</h1>
+        <div class="shop-name" id="shopNameDisplay" style="display:none;"></div>
+        <div class="tagline" id="taglineDisplay">دکان کا ڈیجیٹل کھاتہ — tap to set shop name</div>
+      </div>
+    </div>
+  </header>
+  <p class="subhead">Apne customers ka udhaar aur wapsi record rakhein — kagaz ke khaate ki jagah.</p>
+
+  <div class="toolbar">
+    <button class="icon-btn" id="exportCsvBtn">CSV export</button>
+    <button class="icon-btn" id="backupBtn">Backup lein</button>
+    <button class="icon-btn" id="restoreBtn">Backup restore</button>
+    <input type="file" id="restoreFile" accept=".json" style="display:none;">
+  </div>
+
+  <div class="summary">
+    <div class="stamp owe">
+      <div class="label">Total udhaar (aapko milna hai)</div>
+      <div class="num" id="totalOwe">Rs 0</div>
+    </div>
+    <div class="stamp advance">
+      <div class="label">Total advance (aapko dena hai)</div>
+      <div class="num" id="totalAdvance">Rs 0</div>
+    </div>
+  </div>
+
+  <div class="addbar">
+    <input type="text" id="newName" placeholder="Customer ka naam likhein" maxlength="40">
+    <button id="addBtn">Add karein</button>
+  </div>
+  <div class="err" id="addErr">Pehle naam likhein.</div>
+
+  <div class="ledger" id="ledger"></div>
+
+  <footer>Data sirf is browser mein save hota hai — backup lena na bhoolein.</footer>
+</div>
+
+<div class="overlay" id="shopOverlay">
+  <div class="modal" style="max-width:380px;">
+    <button class="close" id="closeShopModal">&times;</button>
+    <h2>Dukaan ki tafseel</h2>
+    <p class="balance-note">Yeh naam aapke customer statements aur WhatsApp messages par dikhega.</p>
+    <span class="field-label">Dukaan ka naam</span>
+    <input type="text" id="shopNameInput" placeholder="Jaise: Al-Karam General Store" style="width:100%;background:#fff;border:1px solid var(--paper-line);border-radius:8px;padding:10px 12px;font-size:14px;color:var(--ink);font-family:'Inter',sans-serif;margin-bottom:14px;">
+    <span class="field-label">Phone / WhatsApp number</span>
+    <input type="text" id="shopPhoneInput" placeholder="03xx-xxxxxxx" style="width:100%;background:#fff;border:1px solid var(--paper-line);border-radius:8px;padding:10px 12px;font-size:14px;color:var(--ink);font-family:'Inter',sans-serif;margin-bottom:16px;">
+    <button class="primary-btn" id="saveShopBtn">Save karein</button>
+  </div>
+</div>
+
+<div class="overlay" id="overlay">
+  <div class="modal">
+    <button class="close" id="closeModal">&times;</button>
+    <h2 id="custName"></h2>
+    <div class="balance-line" id="custBalance"></div>
+    <div class="balance-note" id="custNote"></div>
+
+    <div class="cust-actions">
+      <button id="printBtn">Statement print karein</button>
+      <button id="waBtn" class="wa">WhatsApp reminder</button>
+      <button id="delCustBtn" style="color:var(--red);">Customer hatayein</button>
+    </div>
+
+    <div class="entry-form">
+      <div class="toggle">
+        <button type="button" id="udharBtn" class="udhar">Udhaar diya</button>
+        <button type="button" id="wapisBtn" class="wapis">Wapis liya</button>
+      </div>
+      <input type="number" id="entryAmt" placeholder="Rupay" min="0">
+      <input type="text" id="entryNote" placeholder="Note (optional)">
+      <button class="primary-btn" id="addEntryBtn">Likhein</button>
+    </div>
+    <div class="err" id="entryErr">Sahi amount likhein.</div>
+
+    <div class="entries" id="entries"></div>
+  </div>
+</div>
+
+<script>
+let data = { customers: [], shop: { name: '', phone: '' } };
+let currentId = null;
+let entryType = 'udhar';
+
+function fmt(n){
+  const r = Math.round(n);
+  return 'Rs ' + Math.abs(r).toLocaleString('en-PK');
+}
+
+function balanceOf(cust){
+  return cust.entries.reduce((sum,e)=> sum + (e.type==='udhar' ? e.amount : -e.amount), 0);
+}
+
+async function load(){
+  try{
+    const res = await window.storage.get('khata:data', false);
+    if(res && res.value){
+      const parsed = JSON.parse(res.value);
+      data = { customers: parsed.customers || [], shop: parsed.shop || { name:'', phone:'' } };
+    }
+  }catch(e){ data = { customers: [], shop: { name:'', phone:'' } }; }
+  renderShop();
+  render();
+}
+
+async function save(){
+  try{
+    await window.storage.set('khata:data', JSON.stringify(data), false);
+  }catch(e){ console.error('save failed', e); }
+}
+
+function renderShop(){
+  const nameEl = document.getElementById('shopNameDisplay');
+  const tagEl = document.getElementById('taglineDisplay');
+  if(data.shop && data.shop.name){
+    nameEl.textContent = data.shop.name;
+    nameEl.style.display = 'block';
+    tagEl.style.display = 'none';
+  } else {
+    nameEl.style.display = 'none';
+    tagEl.style.display = 'block';
+  }
+}
+
+document.getElementById('brandArea').onclick = ()=>{
+  document.getElementById('shopNameInput').value = data.shop.name || '';
+  document.getElementById('shopPhoneInput').value = data.shop.phone || '';
+  document.getElementById('shopOverlay').classList.add('show');
+};
+document.getElementById('closeShopModal').onclick = ()=> document.getElementById('shopOverlay').classList.remove('show');
+document.getElementById('shopOverlay').onclick = (e)=>{ if(e.target.id==='shopOverlay') document.getElementById('shopOverlay').classList.remove('show'); };
+document.getElementById('saveShopBtn').onclick = async ()=>{
+  data.shop = {
+    name: document.getElementById('shopNameInput').value.trim(),
+    phone: document.getElementById('shopPhoneInput').value.trim()
+  };
+  renderShop();
+  document.getElementById('shopOverlay').classList.remove('show');
+  await save();
+};
+
+function render(){
+  const ledger = document.getElementById('ledger');
+  let totalOwe = 0, totalAdvance = 0;
+
+  if(data.customers.length === 0){
+    ledger.innerHTML = '<div class="empty"><div class="big">Abhi khaata khaali hai</div><div class="small">Upar naam likh kar pehla customer add karein.</div></div>';
+  } else {
+    ledger.innerHTML = '';
+    data.customers.forEach(cust=>{
+      const bal = balanceOf(cust);
+      if(bal > 0) totalOwe += bal;
+      if(bal < 0) totalAdvance += -bal;
+      const row = document.createElement('div');
+      row.className = 'row';
+      row.onclick = ()=> openCustomer(cust.id);
+      const cls = bal > 0 ? 'owe' : (bal < 0 ? 'advance' : 'zero');
+      const label = bal > 0 ? 'aapko milna hai' : (bal < 0 ? 'aapko dena hai' : 'hisaab barabar');
+      row.innerHTML = `
+        <div>
+          <div class="row-name">${escapeHtml(cust.name)}</div>
+          <div class="row-sub">${cust.entries.length} entries — ${label}</div>
+        </div>
+        <div class="row-amt ${cls}">${fmt(bal)}</div>
+      `;
+      ledger.appendChild(row);
+    });
+  }
+
+  document.getElementById('totalOwe').textContent = fmt(totalOwe);
+  document.getElementById('totalAdvance').textContent = fmt(totalAdvance);
+}
+
+function escapeHtml(s){
+  const d = document.createElement('div');
+  d.textContent = s;
+  return d.innerHTML;
+}
+
+document.getElementById('addBtn').onclick = async ()=>{
+  const input = document.getElementById('newName');
+  const name = input.value.trim();
+  const err = document.getElementById('addErr');
+  if(!name){ err.classList.add('show'); return; }
+  err.classList.remove('show');
+  data.customers.push({ id: 'c'+Date.now(), name, entries: [] });
+  input.value = '';
+  render();
+  await save();
+};
+document.getElementById('newName').addEventListener('keydown', e=>{
+  if(e.key==='Enter') document.getElementById('addBtn').click();
+});
+document.getElementById('newName').addEventListener('input', ()=>{
+  document.getElementById('addErr').classList.remove('show');
+});
+
+function openCustomer(id){
+  currentId = id;
+  entryType = 'udhar';
+  updateToggle();
+  document.getElementById('entryAmt').value = '';
+  document.getElementById('entryNote').value = '';
+  document.getElementById('entryErr').classList.remove('show');
+  renderModal();
+  document.getElementById('overlay').classList.add('show');
+}
+
+function renderModal(){
+  const cust = data.customers.find(c=>c.id===currentId);
+  if(!cust) return;
+  const bal = balanceOf(cust);
+  document.getElementById('custName').textContent = cust.name;
+  const balEl = document.getElementById('custBalance');
+  const noteEl = document.getElementById('custNote');
+  balEl.className = 'balance-line ' + (bal>0?'owe':(bal<0?'advance':'zero'));
+  balEl.textContent = fmt(bal);
+  noteEl.textContent = bal>0 ? 'Yeh customer par aapka udhaar hai' : (bal<0 ? 'Aapne extra advance le rakha hai' : 'Hisaab barabar hai');
+
+  const entriesEl = document.getElementById('entries');
+  if(cust.entries.length===0){
+    entriesEl.innerHTML = '<div class="empty" style="padding:20px 0;"><div class="small">Koi entry nahi hai abhi.</div></div>';
+  } else {
+    entriesEl.innerHTML = '';
+    [...cust.entries].reverse().forEach(e=>{
+      const row = document.createElement('div');
+      row.className = 'entry';
+      const dateStr = new Date(e.date).toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'});
+      row.innerHTML = `
+        <div class="entry-left">
+          <div class="note">${escapeHtml(e.note || (e.type==='udhar' ? 'Udhaar diya' : 'Wapis liya'))}</div>
+          <div class="date">${dateStr}</div>
+        </div>
+        <div style="display:flex;align-items:center;">
+          <div class="entry-amt ${e.type}">${e.type==='udhar'?'+':'-'}${fmt(e.amount)}</div>
+          <button class="del-entry" data-eid="${e.id}">hatayein</button>
+        </div>
+      `;
+      entriesEl.appendChild(row);
+    });
+    entriesEl.querySelectorAll('.del-entry').forEach(btn=>{
+      btn.onclick = async ()=>{
+        cust.entries = cust.entries.filter(e=>e.id !== btn.dataset.eid);
+        renderModal();
+        render();
+        await save();
+      };
+    });
+  }
+}
+
+function updateToggle(){
+  document.getElementById('udharBtn').classList.toggle('active', entryType==='udhar');
+  document.getElementById('wapisBtn').classList.toggle('active', entryType==='wapis');
+}
+document.getElementById('udharBtn').onclick = ()=>{ entryType='udhar'; updateToggle(); };
+document.getElementById('wapisBtn').onclick = ()=>{ entryType='wapis'; updateToggle(); };
+
+document.getElementById('addEntryBtn').onclick = async ()=>{
+  const amtInput = document.getElementById('entryAmt');
+  const noteInput = document.getElementById('entryNote');
+  const err = document.getElementById('entryErr');
+  const amt = parseFloat(amtInput.value);
+  if(!amt || amt <= 0){ err.classList.add('show'); return; }
+  err.classList.remove('show');
+  const cust = data.customers.find(c=>c.id===currentId);
+  cust.entries.push({
+    id: 'e'+Date.now(),
+    type: entryType,
+    amount: amt,
+    note: noteInput.value.trim(),
+    date: new Date().toISOString()
+  });
+  amtInput.value = '';
+  noteInput.value = '';
+  renderModal();
+  render();
+  await save();
+};
+document.getElementById('entryAmt').addEventListener('input', ()=>{
+  document.getElementById('entryErr').classList.remove('show');
+});
+
+document.getElementById('closeModal').onclick = ()=>{
+  document.getElementById('overlay').classList.remove('show');
+};
+document.getElementById('overlay').onclick = (e)=>{
+  if(e.target.id==='overlay') document.getElementById('overlay').classList.remove('show');
+};
+
+document.getElementById('delCustBtn').onclick = async ()=>{
+  data.customers = data.customers.filter(c=>c.id !== currentId);
+  document.getElementById('overlay').classList.remove('show');
+  render();
+  await save();
+};
+
+document.getElementById('printBtn').onclick = ()=>{ window.print(); };
+
+document.getElementById('waBtn').onclick = ()=>{
+  const cust = data.customers.find(c=>c.id===currentId);
+  const bal = balanceOf(cust);
+  const shopName = data.shop.name || 'Dukaan';
+  let msg;
+  if(bal > 0){
+    msg = `Assalam-o-Alaikum ${cust.name}, ${shopName} ki taraf se yaad dahani: aapke zimme ${fmt(bal)} udhaar hai. Jald wapis kar dein, shukriya.`;
+  } else if(bal < 0){
+    msg = `Assalam-o-Alaikum ${cust.name}, ${shopName} ki taraf se: aapka ${fmt(-bal)} advance hamare paas hai.`;
+  } else {
+    msg = `Assalam-o-Alaikum ${cust.name}, ${shopName} ki taraf se: aapka hisaab is waqt barabar hai.`;
+  }
+  window.open('https://wa.me/?text=' + encodeURIComponent(msg), '_blank');
+};
+
+document.getElementById('exportCsvBtn').onclick = ()=>{
+  let csv = 'Customer,Balance,Entries\n';
+  data.customers.forEach(c=>{
+    const bal = balanceOf(c);
+    csv += `"${c.name.replace(/"/g,'""')}",${Math.round(bal)},${c.entries.length}\n`;
+  });
+  const blob = new Blob([csv], {type:'text/csv'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'mera-khata-' + new Date().toISOString().slice(0,10) + '.csv';
+  a.click();
+  URL.revokeObjectURL(url);
+};
+
+document.getElementById('backupBtn').onclick = ()=>{
+  const blob = new Blob([JSON.stringify(data, null, 2)], {type:'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'mera-khata-backup-' + new Date().toISOString().slice(0,10) + '.json';
+  a.click();
+  URL.revokeObjectURL(url);
+};
+
+document.getElementById('restoreBtn').onclick = ()=>{
+  document.getElementById('restoreFile').click();
+};
+document.getElementById('restoreFile').onchange = async (e)=>{
+  const file = e.target.files[0];
+  if(!file) return;
+  try{
+    const text = await file.text();
+    const parsed = JSON.parse(text);
+    if(!parsed.customers) throw new Error('invalid');
+    data = { customers: parsed.customers || [], shop: parsed.shop || { name:'', phone:'' } };
+    renderShop();
+    render();
+    await save();
+  }catch(err){
+    alert('Backup file sahi format mein nahi hai.');
+  }
+  e.target.value = '';
+};
+
+load();
+</script>
+</body>
+</html>
